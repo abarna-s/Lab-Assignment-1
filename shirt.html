@@ -1,0 +1,108 @@
+<html ng-app="plunker">
+  <head>
+    <script>document.write('<base href="' + document.location + '" />');</script>
+  <link rel="stylesheet" href="style.css">
+  <script data-require="angular.js@1.0.x" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.js">
+  </script>
+     <script src="app.js"></script>
+	 	 	 <style>
+	 .column {
+  float: left;
+  width: 25%;
+  padding: 10px;
+}
+
+/* Style the images inside the grid */
+.column img {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.column img:hover {
+  opacity: 1;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* The expanding image container (positioning is needed to position the close button and the text) */
+.container {
+  position: relative;
+  display: none;
+}
+
+/* Expanding image text */
+#imgtext {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  color: white;
+  font-size: 20px;
+}
+
+/* Closable button inside the image */
+.closebtn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: white;
+  font-size: 35px;
+  cursor: pointer;
+}
+	 </style>
+  </head>
+  <body ng-controller="MainCtrl">
+    <p><b>design your Tshirt here...</b></p>
+    <p><b> type your text you want</b></p>
+    <input type='text' ng-model="tname">
+      <p>display in tshirt ->{{tname}}</p>
+    <p><b> choose color</b></p>
+    <select>
+      <option>green</option>
+      <option>red</option>
+      <option>black</option>
+      <option>blue</option>
+      <option>yellow</option>
+    </select>
+    <p><b>choose size</b></p>
+    <select>
+      <option>S</option>
+      <option>M</option>
+      <option>L</option>
+      <option>XL</option>
+      <option>XXL</option>
+    </select>
+    <p> <b>choose template</b></p>
+			<!-- The grid: four columns -->
+<div class="row">
+  <div class="column">
+    <img src="tshirt1.jpg" alt="Nature" onclick="myFunction(this);">
+  </div>
+  <div class="column">
+    <img src="tshirt2.jpg" alt="Snow" onclick="myFunction(this);">
+  </div>
+  <div class="column">
+    <img src="tshirt3.jpg" alt="Mountains" onclick="myFunction(this);">
+  </div>
+  <div class="column">
+    <img src="tshirt4.jpg" alt="Lights" onclick="myFunction(this);">
+  </div>
+</div>
+
+<!-- The expanding image container -->
+<div class="container">
+  <!-- Close the image -->
+  <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+
+  <!-- Expanded image -->
+  <img id="expandedImg" style="width:100%">
+
+  <!-- Image text -->
+  <div id="imgtext"></div>
+</div>
+  </body>
+  </html>

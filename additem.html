@@ -1,0 +1,57 @@
+	
+<!DOCTYPE html>
+<html ng-app='ShoppingListApp'>
+    <head>
+        <meta charset="utf-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <script src="cusapp2.js"></script><title>Custom Service</title></head>
+		<style>
+		body{
+		background-color:lightblue;
+		}
+		</style>
+        <body ><h1>SERVICE</h1>
+            <div ng-controller='ShoppingListAddController as itemAdder'>
+                <input type="text" ng-model="itemAdder.itemName" placeholder="Enter item name">
+                <input type="text" ng-model="itemAdder.itemQuantity" placeholder="Enter quantity">
+                <input type="text" ng-model="itemAdder.itemPrice" placeholder="Enter price"></tr>
+                <button ng-click="itemAdder.addItem();">Add Item To Shopping List</button></div>
+                <div ng-controller='ShoppingListShowController as showList'>
+                    <ol>
+                        <li ng-repeat="item in showList.items">{{item.quantity}}{{item.name}}of{{item.price | currency:"INR" : 3}}
+                            <button ng-click="showList.removeItem($index);">Remove Item</button>
+                        </li></ol><h2> SEARCH FOR AN ITEM</h2><ol><input type="text" ng-model="search1" placeholder="Enter a search item"><br><li ng-repeat="item in showList.items | filter : search1">{{item.quantity}}{{item.name}}of{{item.price | currency:"INR" : 3}}</li></ol> </div>
+<script>
+    angular.module('ShoppingListApp', []) 
+    .controller('ShoppingListAddController', ShoppingListAddController) 
+    .controller('ShoppingListShowController', ShoppingListShowController) 
+    .service('ShoppingListService', ShoppingListService);
+    ShoppingListAddController.$inject=['ShoppingListService'];
+    function ShoppingListAddController(ShoppingListService){
+        var itemAdder=this;
+        itemAdder.itemName="";
+        itemAdder.itemQuantity="";
+        itemAdder.itemPrice="";
+        itemAdder.addItem=function (){
+            ShoppingListService.addItem(itemAdder.itemName, itemAdder.itemQuantity, itemAdder.itemPrice);
+            }
+            }
+            ShoppingListShowController.$inject=['ShoppingListService'];
+            function ShoppingListShowController(ShoppingListService){
+                var showList=this;
+                showList.items=ShoppingListService.getItems();
+                showList.removeItem=function (itemIndex){ShoppingListService.removeItem(itemIndex);
+                };
+                }
+                function ShoppingListService(){
+                    var service=this;
+                    var items=[];
+                    service.addItem=function (itemName, quantity, price){
+                        var item={name: itemName,quantity: quantity,price: price};
+                        items.push(item);
+                        };
+                        service.removeItem=function (itemIndex){items.splice(itemIndex,1);};
+                        service.getItems=function (){
+                            return items;};}
+</script>
+                </body></html>
